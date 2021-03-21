@@ -6,18 +6,29 @@
             </a-button>
             <div class="bread-crumb">
                 <a-breadcrumb>
-                    <a-breadcrumb-item>Home</a-breadcrumb-item>
-                    <a-breadcrumb-item><a href="">Center</a></a-breadcrumb-item>
+                    <a-breadcrumb-item>主页</a-breadcrumb-item>
+                    <a-breadcrumb-item><a href="">统计</a></a-breadcrumb-item>
                 </a-breadcrumb>
             </div>
       </div>
-   
     <div class="user-info">
-        <div class="username">
-            <span>用户名</span>
-            <a-icon type="down" />
-        </div>
-        <span class="loginout">退出</span>
+        <!-- 情况1 正在登录中 -->
+        <template v-if="isLoading">
+            <span>Loading...</span>
+        </template>
+        <!-- 情况2 已经登录了 -->
+        <template v-else-if="data">
+            <div class="username">
+                <span>{{ data.username }}</span>
+                <a-icon type="down" />
+            </div>
+            <span class="loginout" @click="loginOut">退出</span>
+        </template>
+        <!-- 情况3 还没有登录 -->
+        <template v-else>
+            <router-link :to="{name:'Login'}" href="" class="to-login">登录</router-link>
+            <router-link :to="{name:'Reg'}" href="" class="to-reg">注册</router-link>
+        </template>
     </div>
   </div>
 </template>
@@ -27,11 +38,15 @@ import { mapState } from 'vuex'
 export default {
     computed:{
         ...mapState(['collapsed']),
+        ...mapState('loginUser',['data','isLoading']),
     },
     methods:{
         toggleCollapsed() {
            this.$store.dispatch('toggleCollapsed');
         },
+        loginOut(){
+            this.$store.dispatch('loginUser/loginOut');
+        }
     },
 }
 </script>
