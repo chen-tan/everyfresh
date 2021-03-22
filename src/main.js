@@ -7,7 +7,8 @@ import './assets/css/reset.css'
 
 Vue.config.productionTip = false;
 
-store.dispatch('loginUser/whoAmI');
+// store.dispatch('loginUser/whoAmI');
+
 
 new Vue({
   router,

@@ -46,3 +46,67 @@
 - $router.currentRoute就是$route.
 - Module not found: Error: Can't resolve 'xxx' in 'xxx'解决办法：
 - 父组件引用了子组件，如果在<style></style>上添加了`scope`，则在父组件上写的有关于子组件的样式，不会作用到子组件上。
+- 在路由导航守卫中，如果进入到一个需要登录后才能展示的页面，此时需要判断是否登录，正常在页面中登录了即可。但是有一种情况：当前已经登录，刷新页面后，需要通过`token`来自动登录，此时在`main.js`中发送请求登录会被导航街截断，解决方法是，在判断是否登录前，发送请求`whoAmI`登录，然后进行是否登录的判断，代码如下：
+```
+router.beforeEach(async (to,from,next)=>{
+    if(to.path!=='/login'){
+      //去的不是登录页
+        await store.dispatch('loginUser/whoAmI'); //通过本地token发送登录请求，等待结果
+        if(store.state.loginUser.data){
+          //已经登录了
+          next();
+        }else{
+            //没有登录
+          next({name:'Login'});
+        }
+    }else{
+      next();
+    }
+})
+```
+- Uncaught (in promise) TypeError: "children" is read-only
+因为children是用`const`定义的，改成`let`就行了
+- 给定一个数组，返回其中及其子元素中含有指定prop属性的项，代码如下：
+```
+function getNeed(arr,prop){
+  arr = arr.filter(i=>{
+    if(i[prop]){
+      if(i['children']){
+        i['children'] = getNeed(i['children'],prop)
+      }
+      return true;
+    }
+  });
+  return arr;
+}
+
+const arr=[
+  { 
+    name:'1',
+    meta:1,
+    children:[
+      {
+        name:'1-1',
+        meta:'1-1',
+        children:[
+          {
+            name:'1-1-1',
+            meta:'1-1-1'
+          },
+          {
+            name:'1-1-2'
+          }
+        ]
+      },
+      {
+        name:'1-2',
+
+      }
+    ]
+  },
+  {
+    name:'2',
+  }
+]
+let res = getNeed(arr,'meta');
+```

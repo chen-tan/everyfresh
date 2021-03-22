@@ -77,7 +77,7 @@ export default {
             const freshEmail=localStorage.getItem('freshEmail');
             const freshPassword=localStorage.getItem('freshPassword');
             if(freshEmail && freshPassword){
-                await delay(1000);
+                await delay(100);
                 const resp = await api.login({
                     email:freshEmail,
                     password:freshPassword

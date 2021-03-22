@@ -6,16 +6,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    collapsed:false
+    collapsed:false,
+    menuRoutes:null,
   },
   mutations: {
     toggleCollapsed(state){
       state.collapsed=!state.collapsed;
+    },
+    getMenuRoutes(state,payload){
+      state.menuRoutes=payload;
     } 
   },
   actions: {
     toggleCollapsed({commit}){
       commit('toggleCollapsed');
+    },
+    getMenuRoutes({commit},payload){
+      commit('getMenuRoutes',payload);
     }
   },
   modules: {
