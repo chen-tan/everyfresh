@@ -90,6 +90,8 @@ export default {
         },
         loginOut({commit}){
             commit('setData',null);
+            localStorage.removeItem('freshEmail');
+            localStorage.removeItem('freshPassword');
         }
 
     },

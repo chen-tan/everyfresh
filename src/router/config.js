@@ -3,8 +3,10 @@ export const routes = [
     {
         path:'/',
         name:'Home',
+        redirect:'/index',
         meta:{
-            title:'主页'
+            title:'主页',
+            auth:true,
         },
         component:()=>import('../views/layout/Home.vue'),
         children:[
@@ -13,8 +15,8 @@ export const routes = [
                 name:'Index',
                 meta:{
                     title:'统计',
-                    icon:'bank'
-
+                    icon:'bank',
+                    auth:true
                 },
                 component:()=>import('../views/page/Index.vue')
             }
@@ -39,6 +41,11 @@ export const routes = [
         path:'/findBack',
         name:'FindBack',
         component:()=>import('../views/layout/FindBack.vue')
+    },
+    {
+        path:'*',
+        name:'NotFound',
+        component:()=>import('../views/layout/NotFound.vue')
     }
 ]
 
@@ -46,6 +53,7 @@ export const asyncRoutes=[
     {
         path:'/product',
         name:'Product',
+        redirect:'/productList',
         meta:{
             title:'产品'
         },
@@ -56,7 +64,9 @@ export const asyncRoutes=[
                 name:'ProductList',
                 meta:{
                     title:'商品列表',
-                    icon:'unordered-list'
+                    icon:'unordered-list',
+                    auth:true,
+                    hidden:false
                 },
                 component:()=>import('../views/page/ProductList.vue')
             },
@@ -65,15 +75,30 @@ export const asyncRoutes=[
                 name:'ProductAdd',
                 meta:{
                     title:'添加商品',
-                    icon:'plus-square'
+                    icon:'plus-square',
+                    auth:true,
+                    hidden:false
                 },
                 component:()=>import('../views/page/ProductAdd.vue')
             },
             {
-                path:'category',
+                path:'/productEdit/:id',
+                name:'ProductEdit',
+                meta:{
+                    title:'编辑商品',
+                    icon:'plus-square',
+                    auth:true,
+                    hidden:true
+                },
+                component:()=>import('../views/page/ProductEdit.vue')
+            },
+            {
+                path:'/category',
                 name:'Category',
                 meta:{
-                    title:'商品类目'
+                    title:'商品类目',
+                    auth:true,
+                    hidden:false
                 },
                 component:()=>import('../views/page/Category.vue')
             }

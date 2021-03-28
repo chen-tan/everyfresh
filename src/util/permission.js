@@ -1,18 +1,20 @@
 const roleToRoute = {
     customer:[
-        {name:'Product'},
-        {name:'ProductAdd'},
-        {name:'ProductList'},
+        {name:'Product',path:'/product'},
+        {name:'ProductAdd',path:'/productAdd'},
+        {name:'ProductList',path:'/productList'},
+        {name:'ProductEdit',path:'/productEdit'},
     ],
     admin:[
-        {name:'Product'},
-        {name:'ProductAdd'},
-        {name:'ProductList'},
-        {name:'Category'}
+        {name:'Product',path:'/product'},
+        {name:'ProductAdd',path:'/productAdd'},
+        {name:'ProductList',path:'/productList'},
+        {name:'ProductEdit',path:'/productEdit'},
+        {name:'Category',path:'/category'}
     ]
 }
     
-export default function getMenu(role,asyncRoutes){
+export function getMenu(role,asyncRoutes){
     const hasPerName=roleToRoute[role].map(i=>i.name);
     const menuRoutes = asyncRoutes.filter(item=>{
         if(hasPerName.indexOf(item.name)!==-1){
@@ -25,4 +27,17 @@ export default function getMenu(role,asyncRoutes){
         }
     })
     return menuRoutes;
+}
+
+export function isAsync(path,asyncRoutes){
+    let result=false;
+    asyncRoutes.forEach(i=>{
+        if(i.path===path){
+            result = true;
+        }
+        if(i.children){
+            result = isAsync(path,i.children);
+        }
+    })
+    return result;
 }

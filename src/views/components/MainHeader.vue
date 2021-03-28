@@ -26,8 +26,8 @@
         </template>
         <!-- 情况3 还没有登录 -->
         <template v-else>
-            <router-link :to="{name:'Login'}" href="" class="to-login">登录</router-link>
-            <router-link :to="{name:'Reg'}" href="" class="to-reg">注册</router-link>
+            <router-link :to="{name:'Login'}" class="to-login">登录</router-link>
+            <router-link :to="{name:'Reg'}" class="to-reg">注册</router-link>
         </template>
     </div>
   </div>

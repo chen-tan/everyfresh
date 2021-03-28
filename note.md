@@ -43,6 +43,7 @@
 如果是一个路由组成的数组对象，可以使用**展开运算符**
 - Uncaught (in promise) Error: Navigation cancelled from "/login" to "/" with a new navigation.
 至今没搞懂是为什么，不过注释了导航守卫的代码后再解开注释就好了，很神奇，以后搞懂了再补充。
+暂时发现，如果取消了`router.addRoute()`就可以避免这个报错，但是这样就不能动态添加路由了。
 - $router.currentRoute就是$route.
 - Module not found: Error: Can't resolve 'xxx' in 'xxx'解决办法：
 - 父组件引用了子组件，如果在<style></style>上添加了`scope`，则在父组件上写的有关于子组件的样式，不会作用到子组件上。
@@ -110,3 +111,29 @@ const arr=[
 ]
 let res = getNeed(arr,'meta');
 ```
+- 使用ant-design组件，有时设置了`router-link`，但是样式和内容显示都有问题，是因为组件库的默认样式是根据标签来写的，所以在`router-link`上使用`tag`属性，修改组件库的标签就行。
+- `router-link`标签用其他元素更换`<a></a>`的新方法,如下图，使用`span`标签：
+```
+<router-link :to="{name:sub.name}" v-slot="{}">
+  <span>{{ sub.meta.title }}</span>
+</router-link>
+```
+- 使用v-charts报错：[Vue warn]: Unknown custom element: <ve-line> - did you register the component correctly? For recursive components, make sure to provide the "name" option.
+1. 安装的v-charts和echarts版本不兼容，兼容版本 v-charts@2.0.9和echarts@4.8.0
+2. 安装之后没有在`main.js`中引入和使用
+- 使用axios时设置参数默认值，在配置请求时：
+```
+  //这是请求
+  axios.get(url,{params});
+  //这是拦截
+  axios.interceptors.request.use(config=>{
+    config.params={
+      ...config.params,
+      appkey,
+    }
+    return config;
+  })
+```
+- 在使用`watch`侦听器的时候，如果是侦听`store`中的数据，不要使用`mapState`获取数据后再监听，容易导致数据改变后页面不渲染（要切换页面后才渲染)，直接`store`中的数据对侦听即可。
+- [vue-router] missing param for named route "ProductEdit": Expected "id" to be defined
+- 当路由改变时，需要监听路由的变化做出数据改变，使用`watch`监听路由，但是改变了页面不一定会发生变化，此时在组件上加一个属性（属性值可以用事件戳），当路由改变时，更新属性值，使得组件重新渲染。

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import loginUser from './loginUser'
-
+import categoryList from './categoryList'
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -26,6 +26,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    loginUser
+    loginUser,
+    categoryList
   },
 });

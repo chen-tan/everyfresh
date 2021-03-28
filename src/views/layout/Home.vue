@@ -1,10 +1,13 @@
 <template>
   <div class="home-page">
       <div class="slider-menu">
-          <slider-menu :class="{'slider-menu-container':true,'menu-flod':collapsed}" />
+          <slider-menu :key="key" :class="{'slider-menu-container':true,'menu-flod':collapsed}" />
       </div>
       <div :class="{'main-app':true,'menu-fold':collapsed}">
           <main-header />
+          <div class="main-container">
+            <router-view></router-view>
+          </div>
       </div>
   </div>
 </template>
@@ -18,11 +21,16 @@ export default {
   name: 'Home',
   data(){
     return {
-      
+        key:new Date().getTime()
     }
   },
   computed:{
     ...mapState(['collapsed']),
+  },
+  watch:{
+    $route(){
+      this.key=new Date().getTime();
+    }
   },
   methods:{
         
