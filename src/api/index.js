@@ -25,6 +25,16 @@ export default {
     delete(id){
         const url=`products/${id}`;
         return instance.delete(url);
+    },
+    add(params){
+        return instance.post('products/add',params);
+    },
+    detail(id){
+        const url=`products/${id}`;
+        return instance.get(url);
+    },
+    editProduct(params){
+        return instance.put('products/edit',params)
     }
 
 }

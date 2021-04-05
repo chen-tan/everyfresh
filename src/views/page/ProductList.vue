@@ -41,7 +41,7 @@ export default {
       this.$router.push({
         name: "ProductEdit",
         params: {
-          id: 1,
+          id: record.id
         },
       });
     },

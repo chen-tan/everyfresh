@@ -90,7 +90,7 @@ export const asyncRoutes=[
                     auth:true,
                     hidden:true
                 },
-                component:()=>import('../views/page/ProductEdit.vue')
+                component:()=>import('../views/page/ProductAdd.vue')
             },
             {
                 path:'/category',

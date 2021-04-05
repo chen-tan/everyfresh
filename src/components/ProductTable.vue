@@ -1,5 +1,5 @@
 <template>
-  <a-table :columns="columns" :data-source="renderData" :scroll="{ y: 540 }">
+  <a-table :columns="columns" :data-source="renderData" :scroll="{ y: 440 }">
     <div slot="operate" slot-scope="text,record">
         <a-button @click="productEdit(text,record)">编辑</a-button>
         <a-button @click="productDelete(text,record)">删除</a-button>
@@ -9,6 +9,7 @@
 </template>
 <script>
 import { mapState } from 'vuex';
+import api from '../api/index'
 const columns = [
   {
     title: '名称',
@@ -82,13 +83,19 @@ export default {
     },
     data() {
         return {
-        columns,
+          columns,
         };
     },
     computed:{
         ...mapState('categoryList',['data']),
         renderData(){
           let categoryList = this.data;
+          // const arr = categoryList.map(c=>c.id);
+          // const res = this.tableData.find(t=>{
+          //   if(arr.indexOf(t.category)===-1){
+          //     console.log(t);
+          //   }
+          // });
             return this.tableData.map(i=>{
               const cate = categoryList.find(c=>i.category===c.id)
                 return {

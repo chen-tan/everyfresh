@@ -82,6 +82,9 @@ export default {
       this.$refs[formName].resetFields();
     },
   },
+  created(){
+    console.log(this.$route);
+  }
 };
 </script>
 <style lang="less" scoped>

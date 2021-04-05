@@ -1,5 +1,6 @@
 <template>
     <div class="page-sum">
+        <component :is="tag" >标题1</component>
         <card />
         <charts />
     </div>
@@ -9,10 +10,15 @@
 import Card from '../../components/Card'
 import Charts from '../../components/Charts.vue'
 export default {
-    components:{
+    components:{ 
         Card,
         Charts
     },
+    data(){
+        return {
+            tag:'div'
+        }
+    }
 }
 </script>
 

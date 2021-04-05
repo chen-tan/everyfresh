@@ -137,3 +137,17 @@ let res = getNeed(arr,'meta');
 - 在使用`watch`侦听器的时候，如果是侦听`store`中的数据，不要使用`mapState`获取数据后再监听，容易导致数据改变后页面不渲染（要切换页面后才渲染)，直接`store`中的数据对侦听即可。
 - [vue-router] missing param for named route "ProductEdit": Expected "id" to be defined
 - 当路由改变时，需要监听路由的变化做出数据改变，使用`watch`监听路由，但是改变了页面不一定会发生变化，此时在组件上加一个属性（属性值可以用事件戳），当路由改变时，更新属性值，使得组件重新渲染。
+- tags is required，在select选择框时，设置了`required`，有输入内容时还是会报这个错误，可能是缺少`v-model`，添加后就好了
+- 使用ant-design，在输入框表单验证中验证数字，用`require:'number'`，输入框在输入数字后会自动转换成字符串，此时需要在`label`标签上加上`v-model.number`
+- 上传图片时，速度很慢，可以检查一下上传的地址，以及上传需要的字段是否正确
+- 使用upload组件，上传图片，在action中写上传地址如下：
+action:https://mallapi.duyiedu.com/upload/images?appkey=${$store.state.loginUser.data.appkey
+一开始上传始终显示跨域，然后，在"?"前加了一个"/"，就上传成功了，成功的写法如下：
+action:https://mallapi.duyiedu.com/upload/images/?appkey=${$store.state.loginUser.data.appkey
+不知道为什么这样能解决跨域。
+emmm...现在发现和路径没有关系，就是有一张图片会报错跨域，其他的不报错。
+- 调用editProduct接口，编辑失败，返回结果显示成功，但是返回的数据中n:0；nModified:0；ok: 1，不全为1，说明编辑并没有成功，只是请求成功了。原因：将需要传的数据传在了`params`中，实际数据应该传在`config`中。
+- 使用`$router.push({name:'ProductList'})`跳转页面时，name的值应为字符串。
+- fileList，编辑商品时图片不显示，可能是把标签上的` :file-list="fileList"`删掉了，加上就行。
+
+**如果感觉代码逻辑没问题，那就可能是写错位置了之类的，如果用的组件库，就去看下组件库的文档和模板**
