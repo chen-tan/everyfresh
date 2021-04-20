@@ -4,6 +4,7 @@
 <script>
 // for test
 //为什么再次提交不上去呢
+//再试yici
 export default {
   data () {
     this.chartSettings = {
