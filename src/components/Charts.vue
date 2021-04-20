@@ -2,6 +2,8 @@
   <ve-line :data="chartData" :settings="chartSettings"></ve-line>
 </template>
 <script>
+// for test
+//为什么再次提交不上去呢
 export default {
   data () {
     this.chartSettings = {
