@@ -83,6 +83,7 @@ export default {
         }
       },
       async created(){
+        console.log(this.$refs);
         const id=this.$route.params.id;
         if(id){
           //编辑页面

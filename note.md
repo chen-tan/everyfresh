@@ -151,3 +151,17 @@ emmm...现在发现和路径没有关系，就是有一张图片会报错跨域�
 - fileList，编辑商品时图片不显示，可能是把标签上的` :file-list="fileList"`删掉了，加上就行。
 
 **如果感觉代码逻辑没问题，那就可能是写错位置了之类的，如果用的组件库，就去看下组件库的文档和模板**
+### 本地打包后运行，需要启动一个 HTTP 服务器来访问
+参考：https://cli.vuejs.org/zh/guide/deployment.html#%E6%9C%AC%E5%9C%B0%E9%A2%84%E8%A7%88
+1. 安装静态文件服务器  `npm install -g serve`
+2. 运行命令打开页面 `serve -s dist`
+### 将项目部署到Github，使用`hash`模式
+参考：https://cli.vuejs.org/zh/guide/deployment.html#github-pages
+1. 在 vue.config.js 中设置正确的 publicPath。
+2. 执行`npm run build`，打包到dist目录
+3. 进入到`dist`目录，打开git Bash
+4. 依次执行：`git init` -> `git add -A` -> `git commit -m 'deploy'`
+5. 执行 `git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages`，访问`https://<USERNAME>.github.io/<REPO>`
+6. ps:若第5步执行：`git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master`，则访问
+`https://<USERNAME>.github.io`
+7. 我自己的gitHub地址：`https://chen-tan.github.io/xxxxx`

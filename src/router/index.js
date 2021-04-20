@@ -41,9 +41,13 @@ router.beforeEach(async (to,from,next)=>{
             })
             store.dispatch('getMenuRoutes',hasMetaRoutes.concat(menuRoutes));
           }
-          
+          // if(isAddRoutes && isAsyncPath){
+          //   console.log('去这里');
+          //   next(to.fullPath);
+          // }else{  
+          //   next();
+          // }
           next();
-
         }else{
           next({name:'Login'});
         }
